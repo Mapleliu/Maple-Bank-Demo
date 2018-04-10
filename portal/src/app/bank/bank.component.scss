@@ -1,0 +1,58 @@
+.well-block {
+    background-color: #fff;
+    border: 1px solid #e9e6e8;
+    padding: 20px;
+}
+
+.well-title {
+    margin-bottom: 20px;
+}
+
+.uploadBtn {
+	margin-left: 10px;
+}
+
+.bankName{
+	font-weight: bold;
+	text-transform: capitalize;
+	padding: 10px;
+}
+.jumbopadding{
+	padding: 12px 6px 12px 6px !important;
+}
+
+.inputDnD {
+  .form-control-file {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 6em;
+    outline: none;
+    visibility: hidden;
+    cursor: pointer;
+    background-color: #c61c23;
+    box-shadow: 0 0 5px solid currentColor;
+    &:before {
+      content: attr(title);
+      position: absolute;
+      top: 0.5em;
+      left: 0;
+      width: 100%;
+      min-height: 6em;
+      line-height: 2em;
+      padding-top: 1.5em;
+      opacity: 1;
+      visibility: visible;
+      text-align: center;
+      border: 0.25em dashed currentColor;
+      transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+      overflow: hidden;
+    }
+    &:hover {
+      &:before {
+        border-style: solid;
+        box-shadow: inset 0px 0px 0px 0.25em currentColor;
+      }
+    }
+  }
+}

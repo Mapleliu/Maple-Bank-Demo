@@ -1,0 +1,75 @@
+{
+	"banks": [
+		{
+			"name" : "XXX1 Bank",
+			"id" : "xxx1",
+			"user" :{
+				"userId" : "xxx1",
+				"password" : "password"
+			}
+		},
+		{
+			"name" : "XXX2 Bank",
+			"id" : "xxx2",
+			"user" :{
+				"userId" : "xxx2",
+				"password" : "password"
+			}
+		},
+		{
+			"name" : "XXX3 Bank",
+			"id" : "xxx3",
+			"user" :{
+				"userId" : "xxx3",
+				"password" : "password"
+			}
+		}
+	],
+	"customer":[
+		{
+			"userId" : "customer1",
+			"password" : "password",
+			"name" : "User One"
+		},
+		{
+			"userId" : "customer2",
+			"password" : "password",
+			"name" : "User Two"
+		},
+		{
+			"userId" : "customer3",
+			"password" : "password",
+			"name" : "User Three"
+		},
+		{
+			"userId" : "customer4",
+			"password" : "password",
+			"name" : "User Four"
+		},
+		{
+			"userId" : "customer5",
+			"password" : "password",
+			"name" : "User Five"
+		},
+		{
+			"userId" : "customer6",
+			"password" : "password",
+			"name" : "User Six"
+		},
+		{
+			"userId" : "customer7",
+			"password" : "password",
+			"name" : "User Seven"
+		},
+		{
+			"userId" : "customer8",
+			"password" : "password",
+			"name" : "User Eight"
+		},
+		{
+			"userId" : "customer9",
+			"password" : "password",
+			"name" : "User Nine"
+		}
+	]
+}

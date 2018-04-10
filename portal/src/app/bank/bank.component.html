@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="jumbotron text-center pt-3 pb-3 m-0">
+  		<div class="row sectionName">
+            <h5>{{bank}}</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="well-block" style="height: 279px;">
+                    <div class="well-title">
+                        <h4 translate>bank.pleaseUploadTheCustomerList</h4>
+                    </div>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <!-- Form start -->
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <!-- Upload CSV -->
+                            <div class="col-md-6">
+                                <!-- <div class="form-group">
+                                    <div class="input-prepend input-append">
+                                        <label class="custom-file">
+                                            <input type="file" accept=".csv" id="file" name="csvFile" class="custom-file-input" (change)="onFileChange($event)" #fileInput>
+                                            <span class="custom-file-control"></span>
+                                        </label>
+                                    </div>
+                                </div> -->
+                                <div class="m-b-1">
+                                    <div class="col-sm-12 offset-sm-3">
+                                      <button type="button" class="btn btn-primary btn-block" (click)="selectFile()" translate>bank.uploadCSVFile</button>
+                                      <div class="form-group inputDnD">
+                                        <label class="sr-only" for="inputFile" translate>bank.fileUpload</label>
+                                        <input type="file" name="csvFile" class="form-control-file text-primary font-weight-bold" id="file" accept=".csv" (change)="onFileChange($event)" #fileInput title="{{'bank.dragAndDropFile'| translate}}">
+                                      </div>
+                                      <!-- <span class="custom-file-control"></span> -->
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                            <!-- Button -->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-sm btn-secondary" (click)="clearFile()" translate>common.clear</button>
+                                    <button id="singlebutton" name="singlebutton" class="btn btn-sm btn-primary" type="Submit" [disabled]="form.invalid || loading" (click)="onSubmit()" translate>common.submit <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+                                </div>
+                               <!--  <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="uploadSuccess" translate>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click) ="closeAlerts()">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    bank.fileUploadSuccess
+                                </div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="uploadError" translate>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click) ="closeAlerts()">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    bank.fileUploadError
+                                </div>                                
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="invalidUploadError" translate>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click) ="closeAlerts()">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    bank.invalidFileUploadError
+                                </div> -->
+                            </div>
+                        </div>
+                    </form>
+                    <!-- form end -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="well-block">
+                    <div class="feature-block">
+                        <div class="feature feature-blurb-text">
+                            <div class="feature-content">
+                                <p translate>
+                                    bank.uploadCSVFileInformation
+                                </p>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><span translate>bank.userName</span> --> user_name</li>
+                                    <li class="list-group-item"><span translate>bank.userIdCard</span> # --> user_id_card#</li>
+                                    <li class="list-group-item"><span translate>common.userAccountNumber</span> --> user_account</li>
+                                    <li class="list-group-item"><span translate>bank.mobileNumber</span> --> mobile_number</li>
+                                </ul>
+                            </div>
+                            <!-- Modal Start -->
+                            <!-- <app-basic-modal [modalTitle]="modalTitle" [modalContent]="modalMessage" #uploadModal></app-basic-modal> -->
+                            <!-- Modal End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

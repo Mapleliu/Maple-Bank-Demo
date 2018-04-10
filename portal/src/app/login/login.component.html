@@ -1,0 +1,212 @@
+<div class="login-container bg-light">
+  <div class="login-box">
+    <h1 translate>common.appName</h1>
+    <div>
+      <h6 class="d-inline-block">v{{version}}</h6>
+      <div class="d-inline-block ml-3" ngbDropdown>
+        <button id="language-dropdown" class="btn btn-sm btn-secondary" ngbDropdownToggle>
+          {{currentLanguage}}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="language-dropdown">
+          <button class="dropdown-item" *ngFor="let language of languages" (click)="setLanguage(language)">
+            {{language}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card col-md-6 mt-3 mx-auto">
+        <div class="card-body">
+          <h4 class="card-title text-center">
+            <i class="fa fa-3x fa-user-circle-o text-muted"></i>
+          </h4>
+          <!-- Login Tabs -->
+            <ngb-tabset id="login-tabs">
+              <ngb-tab id="bank-login-tab">
+                <ng-template ngbTabTitle>
+                  <div (click)="selectLogin('bank')" class="login-tabs-title">
+                    <strong translate>login.bankLogin</strong>
+                  </div>
+                </ng-template>
+                <ng-template ngbTabContent ng-class="login-tab-content">
+                  <form (ngSubmit)="bankLogin()" [formGroup]="loginBankForm" novalidate *ngIf="loginType=='bank'">
+                    <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+                      login.usernamePasswordIncorrect
+                    </div>
+                    <div class="form-group">
+                      <label class="d-block">
+                        <span hidden translate>common.Bank</span>
+                        <select class="form-control" formControlName="bank">
+                          <option [ngValue]="undefined" disabled  [selected]="true" translate>common.selectBank</option>
+                          <option *ngFor="let bank of banks" [ngValue]="bank.id">{{bank.name}}</option>
+                        </select>
+                        <small [hidden]="loginBankForm.controls.bank.valid || loginBankForm.controls.bank.untouched"
+                               class="text-danger" translate>
+                          common.selectBankError
+                        </small>
+                      </label>
+                      <label class="d-block">
+                        <input type="text" class="form-control" formControlName="username"
+                               [placeholder]="'login.userNamePlaceholder' | translate"/>
+                        <span hidden translate>login.userName</span>
+                        <small [hidden]="loginBankForm.controls.username.valid || loginBankForm.controls.username.untouched"
+                               class="text-danger" translate>
+                          login.usernameRequired
+                        </small>
+                      </label>
+                      <label class="d-block">
+                        <input type="password" class="form-control" formControlName="password"
+                               [placeholder]="'login.passwordPlaceholder' | translate" required/>
+                        <span hidden translate>login.password</span>
+                        <small [hidden]="loginBankForm.controls.password.valid || loginBankForm.controls.password.untouched"
+                               class="text-danger" translate>
+                          login.passwordRequired
+                        </small>
+                      </label>
+                     <!-- <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" formControlName="remember"/>
+                        <span translate>login.RememberMe</span>
+                      </label>-->
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit" [disabled]="loginBankForm.invalid || isLoading">
+                      <i class="fa fa-cog fa-spin" [hidden]="!isLoading"></i>
+                      <span translate>login.login</span>
+                    </button>
+                  </form>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab id="customer-login-tab">
+                <ng-template ngbTabTitle>
+                    <div (click)="selectLogin('customer')" class="login-tabs-title">
+                      <strong translate>login.customerLogin</strong>
+                    </div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <form (ngSubmit)="customerLogin()" [formGroup]="loginCustomerForm" novalidate *ngIf="loginType=='customer'">
+                    <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+                      login.usernamePasswordIncorrect
+                    </div>
+                    <div class="form-group">
+                      <label class="d-block">
+                        <input type="text" class="form-control" formControlName="username"
+                               [placeholder]="'login.userNamePlaceholder' | translate"/>
+                        <span hidden translate>login.userName</span>
+                        <small [hidden]="loginCustomerForm.controls.username.valid || loginCustomerForm.controls.username.untouched"
+                               class="text-danger" translate>
+                          login.usernameRequired
+                        </small>
+                      </label>
+                      <label class="d-block">
+                        <input type="password" class="form-control" formControlName="password"
+                               [placeholder]="'login.passwordPlaceholder' | translate" required/>
+                        <span hidden translate>login.password</span>
+                        <small [hidden]="loginCustomerForm.controls.password.valid || loginCustomerForm.controls.password.untouched"
+                               class="text-danger" translate>
+                          login.passwordRequired
+                        </small>
+                      </label>
+                      <!--<label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" formControlName="remember"/>
+                        <span translate>login.RememberMe</span>
+                      </label> -->
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit" [disabled]="loginCustomerForm.invalid || isLoading">
+                      <i class="fa fa-cog fa-spin" [hidden]="!isLoading"></i>
+                      <span translate>login.login</span>
+                    </button>
+                  </form>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          <!-- Login tabs end -->
+          <!-- <label class="d-block">
+            <div class="logintype-wrapper text-center">
+              <div class="btn-group" role="group" aria-label="Login Type" data-toggle="buttons">
+                <button type="button" class="btn btn-outline-primary" (click)="selectLogin('bank')">Bank Login</button>
+                <button type="button" class="btn btn-outline-primary" (click)="selectLogin('customer')">Customer Login</button>
+              </div>
+
+            </div>
+          </label>
+          <form (ngSubmit)="bankLogin()" [formGroup]="loginBankForm" novalidate *ngIf="loginType=='bank'">
+            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+              Username or password incorrect.
+            </div>
+            <div class="form-group">
+              <label class="d-block">
+                <span hidden translate>Bank</span>
+                <select class="form-control" formControlName="bank">
+                  <option [ngValue]="undefined" disabled  selected translate> SELECT_BANK </option>
+                  <option *ngFor="let bank of banks" [ngValue]="bank.id">{{bank.name}}</option>
+                </select>
+                <small [hidden]="loginBankForm.controls.bank.valid || loginBankForm.controls.bank.untouched"
+                       class="text-danger" translate>
+                  selectBankError
+                </small>
+              </label>
+              <label class="d-block">
+                <input type="text" class="form-control" formControlName="username"
+                       [placeholder]="'Username' | translate"/>
+                <span hidden translate>Username</span>
+                <small [hidden]="loginBankForm.controls.username.valid || loginBankForm.controls.username.untouched"
+                       class="text-danger" translate>
+                  Username is required
+                </small>
+              </label>
+              <label class="d-block">
+                <input type="password" class="form-control" formControlName="password"
+                       [placeholder]="'Password' | translate" required/>
+                <span hidden translate>Password</span>
+                <small [hidden]="loginBankForm.controls.password.valid || loginBankForm.controls.password.untouched"
+                       class="text-danger" translate>
+                  Password is required
+                </small>
+              </label>
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="remember"/>
+                <span translate>Remember me</span>
+              </label>
+            </div>
+            <button class="btn btn-primary w-100" type="submit" [disabled]="loginBankForm.invalid || isLoading">
+              <i class="fa fa-cog fa-spin" [hidden]="!isLoading"></i>
+              <span translate>Login</span>
+            </button>
+          </form>
+          <form (ngSubmit)="customerLogin()" [formGroup]="loginCustomerForm" novalidate *ngIf="loginType=='customer'">
+            <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+              Username or password incorrect.
+            </div>
+            <div class="form-group">
+              <label class="d-block">
+                <input type="text" class="form-control" formControlName="username"
+                       [placeholder]="'Username' | translate"/>
+                <span hidden translate>Username</span>
+                <small [hidden]="loginCustomerForm.controls.username.valid || loginCustomerForm.controls.username.untouched"
+                       class="text-danger" translate>
+                  Username is required
+                </small>
+              </label>
+              <label class="d-block">
+                <input type="password" class="form-control" formControlName="password"
+                       [placeholder]="'Password' | translate" required/>
+                <span hidden translate>Password</span>
+                <small [hidden]="loginCustomerForm.controls.password.valid || loginCustomerForm.controls.password.untouched"
+                       class="text-danger" translate>
+                  Password is required
+                </small>
+              </label>
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="remember"/>
+                <span translate>Remember me</span>
+              </label>
+            </div>
+            <button class="btn btn-primary w-100" type="submit" [disabled]="loginCustomerForm.invalid || isLoading">
+              <i class="fa fa-cog fa-spin" [hidden]="!isLoading"></i>
+              <span translate>Login</span>
+            </button>
+          </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

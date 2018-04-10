@@ -1,0 +1,17 @@
+{
+  "generator-ngx-rocket": {
+    "version": "2.3.1",
+    "props": {
+      "appName": "baasbankdemo",
+      "target": [
+        "web"
+      ],
+      "pwa": true,
+      "ui": "bootstrap",
+      "auth": true,
+      "projectName": "baasbankdemo",
+      "mobile": [],
+      "webview": []
+    }
+  }
+}

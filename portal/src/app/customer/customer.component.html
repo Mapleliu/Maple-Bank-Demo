@@ -1,0 +1,115 @@
+<div class="container-fluid">
+  <div class="jumbotron text-center pt-3 pb-3">
+    <div class="row">
+                <div class="col-md-6">
+                    <div class="well-block">
+                        <div class="well-title">
+                            <h4 translate>customer.type2AccountRequest</h4>
+                        </div>
+                        <form (ngSubmit)="onSubmit()" [formGroup]="createAccountForm" novalidate>
+                            <!-- Form start -->
+                            <div class="row">
+                                <div class="form-group col-lg-6 m-0">
+                                    <label translate>common.Bank</label>
+                                    <label class="d-block">
+                                        <select class="form-control" formControlName="bank">
+                                          <option value="undefined" disabled  [selected]="true" translate>common.selectBank</option>
+                                          <option *ngFor="let bank of bankList" value="{{bank.id}}">{{bank.name}}</option>
+                                        </select>
+                                        <div *ngIf="createAccountForm.controls.bank.invalid && (createAccountForm.controls.bank.dirty || createAccountForm.controls.bank.touched)" 
+                                           class="text-danger text-left">
+                                            <small translate>customer.selectYourBankError</small>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="form-group col-lg-6 m-0">
+                                    <label translate>customer.userName</label>
+                                    <input type="text" class="form-control" placeholder="{{'customer.userNamePlaceholder'|translate}}" formControlName="username" pattern="[a-zA-Z ]*" >
+                                    <div *ngIf="createAccountForm.controls.username.invalid && (createAccountForm.controls.username.dirty || createAccountForm.controls.username.touched)" 
+                                           class="text-danger text-left">
+                                      <small translate>customer.usernameRequired</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-6 m-0">
+                                    <label translate>customer.userId</label>
+                                    <input type="text" class="form-control" placeholder="{{'customer.userIdPlaceholder'|translate}}" formControlName="userid" >
+                                    <div *ngIf="createAccountForm.controls.userid.invalid && (createAccountForm.controls.userid.dirty || createAccountForm.controls.userid.touched)" 
+                                           class="text-danger text-left">
+                                      <small translate>customer.userIdRequired</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-6 m-0">
+                                    <label translate>customer.mobileNumber</label>
+                                    <input type="Phone" class="form-control" placeholder="{{'customer.mobileNumberPlaceholder'|translate}}" formControlName="mobilephone" pattern="^\d{10,11}$">
+                                    <div *ngIf="createAccountForm.controls.mobilephone.invalid && (createAccountForm.controls.mobilephone.dirty || createAccountForm.controls.mobilephone.touched)" 
+                                           class="text-danger text-left">
+                                      <small translate>customer.mobileNumberRequired</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-12 p-0 m-0">
+                                    <label style="position: inherit; top: -19px;" translate>customer.doYouHaveTypeIAccount</label>
+                                    <label></label>
+                                    <label class="toggle">
+                                        <input id="accountSwitch" type="checkbox"(click)="existing()">
+                                        <span class="handle" title="{{'common.yes'|translate}}" translate>common.no</span>
+                                    </label>
+                                </div>
+                                <div class="form-group col-lg-6 m-0">
+                                    <label translate>common.Bank</label>
+                                    <select class="form-control" formControlName="whichBank" [attr.disabled]="hasTypeOneAcc == true ? true : null">
+                                        <option value="undefined" disabled  [selected]="true" translate>common.selectBank</option>
+                                        <option *ngFor="let bank of bankList" value="{{bank.id}}">{{bank.name}}</option>
+                                    </select>
+                                    <div *ngIf="createAccountForm.controls.whichBank.invalid && !hasTypeOneAcc && (createAccountForm.controls.whichBank.dirty || createAccountForm.controls.whichBank.touched)"
+                                           class="text-danger text-left">
+                                        <small translate>customer.selectYourBankError</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6 m-0">
+                                    <label translate>customer.userAccountNumber</label>
+                                    <input type="" class="form-control" [readonly]="hasTypeOneAcc" placeholder="{{'customer.userAccountNumberPlaceholder'|translate}}" formControlName="currentaccnumber">
+                                    <div *ngIf="createAccountForm.controls.currentaccnumber.invalid && !hasTypeOneAcc && (createAccountForm.controls.currentaccnumber.dirty || createAccountForm.controls.currentaccnumber.touched)" 
+                                           class="text-danger text-left">
+                                        <small translate>customer.userAccountNumberRequired</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-sm btn-secondary" (click)="clearFile()" translate>common.clear</button>
+                                    <button id="singlebutton" name="singlebutton" class="btn btn-sm btn-primary" type="Submit" [disabled]="createAccountForm.invalid || loading" (click)="onSubmit()" translate>common.submit <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+                                </div>
+                                <div class="alert alert-success" *ngIf="createSuccess" translate>customer.createUserAccountSuccess</div>
+                                <div class="alert alert-danger" *ngIf="createError" translate>customer.createUserAccountError</div>
+                            </div>
+                        </form>
+                        <!-- form end -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="well-block">
+                        <div class="feature-block">
+                            <div class="feature feature-blurb-text">
+                                <div class="feature-content">
+                                    <p translate>
+                                        customer.requestTypeIIAccountTitle
+                                    </p>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><span translate>common.Bank</span> --> <span translate>customer.bankMessage</span></li>
+                                        <li class="list-group-item"><span translate>customer.userName</span> --> <span translate>customer.userNameMessage</span></li>
+                                        <li class="list-group-item"><span translate>customer.userId</span> --> <span translate>customer.userIDMessage</span></li>
+                                        <li class="list-group-item"><span translate>customer.mobileNumber</span> --> <span translate>customer.mobileNumberMessage</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  </div>
+</div>
